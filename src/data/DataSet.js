@@ -39,6 +39,11 @@ function DataSet(data, options) {
 
     this._options = options || {};
     this._data = []; // map with data indexed by id
+    
+    // add rtree
+    if (RTree) {
+        this._rt = RTree();
+    }
 
     // add initial data when provided
     if (data) {
@@ -53,6 +58,9 @@ DataSet.prototype = Event.prototype;
  * Add data.
  */
 DataSet.prototype.add = function (data, senderId) {
+    if (this._rt) {
+        this._rt.geoJSON(data);
+    }
     if (Array.isArray(data)) {
         // Array
         for (var i = 0, len = data.length; i < len; i++) {
@@ -110,6 +118,10 @@ DataSet.prototype.get = function (args) {
 
 };
 
+DataSet.prototype.getByBbox = function (lbPoint, rtPoint) {
+    return this._rt.bbox([lbPoint.lng, lbPoint.lat], [rtPoint.lng, rtPoint.lat]);
+}
+
 /**
  * set data.
  */
@@ -131,6 +143,9 @@ DataSet.prototype._set = function (data) {
  */
 DataSet.prototype.clear = function (args) {
     this._data = []; // map with data indexed by id
+    if (this._rt) {
+        this._rt = RTree();
+    }
 }
 
 /**
