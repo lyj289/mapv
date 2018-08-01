@@ -3,7 +3,6 @@
  */
 
 import Event from "../utils/Event";
-import cityCenter from "../utils/cityCenter";
 
 /**
  * DataSet
@@ -41,7 +40,7 @@ function DataSet(data, options) {
     this._data = []; // map with data indexed by id
     
     // add rtree
-    if (RTree) {
+    if (window.RTree) {
         this._rt = RTree();
     }
 
@@ -256,15 +255,7 @@ DataSet.prototype.initGeometry = function (transferFn) {
                         type: 'Point',
                         coordinates: [item.lng, item.lat]
                     }
-                } else if (item.city) {
-                    var center = cityCenter.getCenterByCityName(item.city);
-                    if (center) {
-                        item.geometry = {
-                            type: 'Point',
-                            coordinates: [center.lng, center.lat]
-                        }
-                    }
-                }
+                } 
             }
         });
     }

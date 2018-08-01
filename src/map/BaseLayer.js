@@ -189,7 +189,21 @@ class BaseLayer {
 
     isPointInPath(context, pixel) {
         var context = this.canvasLayer.canvas.getContext(this.context);
-        var data = this.dataSet.get();
+        
+        var data;
+
+        if (this.dataSet._rt) {
+            // create a 3 pixel rect for query
+            let width = 3
+            let lbPixel = new BMap.Pixel(pixel.x - width, pixel.y - width)
+            let rtPixel = new BMap.Pixel(pixel.x + width, pixel.y + width)
+            let lbPoint = this.map.pixelToPoint(lbPixel)
+            let rtPoint = this.map.pixelToPoint(rtPixel)
+
+            data = this.dataSet.getByBbox(lbPoint, rtPoint);
+        } else {
+            data = this.dataSet.get();
+        }
         for (var i = 0; i < data.length; i++) {
             context.beginPath();
             pathSimple.draw(context, data[i], this.options);
