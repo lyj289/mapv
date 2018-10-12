@@ -96,6 +96,7 @@ mapv中主要都是展示地理信息数据用的，需要在数据中加个geom
                 coordinates: [123, 23]
             },
             fillStyle: 'red',
+            showArrow: 1,
             size: 30
         }
     ]);
