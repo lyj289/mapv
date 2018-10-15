@@ -97,6 +97,7 @@ export default {
 
                     if ((item.strokeStyle || options.strokeStyle) && options.lineWidth) {
                         
+                        // add lineWidth for data item
                         if (item.lineWidth){
                             context.lineWidth = item.lineWidth;
                         }
