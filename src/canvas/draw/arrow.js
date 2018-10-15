@@ -50,7 +50,7 @@ var object = {
 
             var item = data[i];
 
-            // add arrow draw constrol for data item
+            // add showArrow for data item
             if ('showArrow' in item && !item.showArrow) {
                 continue;
             }
