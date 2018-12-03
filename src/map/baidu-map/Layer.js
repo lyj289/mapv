@@ -18,6 +18,8 @@ class Layer extends BaseLayer{
         var data = null;
         options = options || {};
 
+        this.tId = 0;
+        
         this.clickEvent = this.clickEvent.bind(this);
         this.mousemoveEvent = this.mousemoveEvent.bind(this);
 
@@ -45,8 +47,8 @@ class Layer extends BaseLayer{
     }
     
     throttle(fun, ctx, pixel, e) {
-        clearTimeout(fun.tId)
-        fun.tId = setTimeout(function(){
+        clearTimeout(this.tId)
+        this.tId = setTimeout(function(){
             fun.call(ctx, pixel, e);
         }, 300);
     }
